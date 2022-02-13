@@ -10,5 +10,6 @@ set incsearch
 set hlsearch
 set wildmenu
 set scrolloff=10
+let g:NERDTreeNodeDelimiter = "\u"
 set nu
 set rnu
