@@ -8,8 +8,12 @@ set backspace =eol,start,indent
 set clipboard=unnamed
 set incsearch
 set hlsearch
+set tabstop=4
 set wildmenu
 set scrolloff=10
-let g:NERDTreeNodeDelimiter = "\u00a0"
 set nu
+set colorcolumn=79
+set shiftwidth=4
+set autoindent
+let g:NERDTreeNodeDelimiter = "\u00a0"
 set rnu
