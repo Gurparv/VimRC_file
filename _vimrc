@@ -5,6 +5,7 @@ set backspace=indent,eol,start
 set nohls
 set signcolumn=yes
 set scrolloff=8
+set smartindent
 set incsearch
 set wildmenu
 set shiftwidth=4
@@ -57,6 +58,10 @@ vmap < <gv
 vmap > >gv
 
 "Folding/collapsing methods
+
+"Moving text up and down
+vmap <A-j> :m '<-2<CR>gv=gv
+vmap <A-k> :m '>+1<CR>gv=gv
 
 
 call plug#begin('~/AppData/Local/nvim/autoload/plugged')
