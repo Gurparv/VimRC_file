@@ -11,13 +11,16 @@ set wildmenu
 set shiftwidth=4
 set noswapfile
 set cursorline
+set cursorcolumn
+set ignorecase
+set list
 set splitright
 set splitbelow
 set clipboard+=unnamedplus
 colorscheme gruvbox
 
 "Open File Explorer - Intellij same
-nmap <A-1> :30Lexplore<CR>
+nmap <A-1> :30Vexplore<CR>
 
 "Create new file - Intellij same
 nmap <A-Insert> :tabe<CR>
@@ -32,8 +35,8 @@ nmap <leader>init :tabe<SPACE>~/AppData/Local/nvim/init.vim<CR>
 nmap <leader>s :source %<CR>
 
 "Switch tabs easily - Intellij same
-nmap <A-Right> gt
-nmap <A-Left> gT
+nmap <A-k> gt
+nmap <A-j> gT
 
 "Save file easily
 nmap <C-s> :w<CR>
@@ -63,10 +66,68 @@ vmap > >gv
 vmap <A-j> :m '<-2<CR>gv=gv
 vmap <A-k> :m '>+1<CR>gv=gv
 
+"Remap <Space> key as leader
+nnoremap <SPACE> <NOP>
+let mapleader = " "
+
+"Recognize .apex and .cls files as Salesforce apex files
+au BufRead,BufNewFile *.cls,*.trigger,*.apex set filetype=apexcode
 
 call plug#begin('~/AppData/Local/nvim/autoload/plugged')
 Plug 'https://github.com/morhetz/gruvbox.git'
 Plug 'https://github.com/sainnhe/everforest.git'
+Plug 'https://github.com/neovim/nvim-lspconfig.git'
+Plug 'https://github.com/williamboman/nvim-lsp-installer.git'
 call plug#end()
 
-"Plugins installed are Harpoon, SAlesforce apex highlighting, Telescope, 
+			
+lua <<EOF
+require("nvim-lsp-installer").setup {
+	print("Boss -> LSP-installer instantiated !! ")
+	}
+
+require'lspconfig'.gopls.setup{
+	on_attach = function() 
+	print("Go LSP 'gopls' is attached to this buffer ✔✔😃") 
+	vim.keymap.set("n","K",vim.lsp.buf.hover,{buffer=0})
+	vim.keymap.set("n","gd",vim.lsp.buf.definition,{buffer=0})
+	vim.keymap.set("n","gt",vim.lsp.buf.type_definition,{buffer=0})
+	vim.keymap.set("n","gi",vim.lsp.buf.implementation,{buffer=0})
+	vim.keymap.set("n","<leader>df",vim.diagnostic.goto_next,{buffer=0})
+	vim.keymap.set("n","<leader>dp",vim.diagnostic.goto_prev,{buffer=0})
+	vim.keymap.set("n","<leader>dl","<cmd> Telescope diagnostics<CR>",{buffer=0})
+	vim.keymap.set("n","<leader>r",vim.lsp.buf.rename,{buffer=0})
+	end,
+    flags = lsp_flags,
+}
+
+require'lspconfig'.pyright.setup{
+	on_attach = function()
+	print("Python LSP - 'pyright' is attached to this buffer .. Woohoo! 😘")
+	end,
+    flags = lsp_flags,
+}
+
+require'lspconfig'.sumneko_lua.setup{
+	on_attach = function()
+	print("Lua LSP - 'sumneko_lua' is attached ! 🎉🤩")
+	end,
+    flags = lsp_flags,
+}
+
+require'lspconfig'.jdtls.setup({
+	on_attach = on_attach,
+	flags = lsp_flags,
+})
+
+
+require'lspconfig'.quick_lint_js.setup({
+	on_attach = function() 
+	print("Javascript LSP - 'quick_lint_js' is attached ! 😁❤")
+	vim.keymap.set("n","K",vim.lsp.buf.hover,{buffer=0})
+	end,
+	flags = lsp_flags,
+})
+
+EOF
+
