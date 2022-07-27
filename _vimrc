@@ -17,7 +17,7 @@ set list
 set splitright
 set splitbelow
 set clipboard+=unnamedplus
-set statusline=3
+set laststatus=3
 highlight WinSeparator guibg=None
 colorscheme gruvbox
 
