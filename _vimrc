@@ -17,6 +17,8 @@ set list
 set splitright
 set splitbelow
 set clipboard+=unnamedplus
+set statusline=3
+highlight WinSeparator guibg=None
 colorscheme gruvbox
 
 "Open File Explorer - Intellij same
@@ -73,16 +75,26 @@ let mapleader = " "
 "Recognize .apex and .cls files as Salesforce apex files
 au BufRead,BufNewFile *.cls,*.trigger,*.apex set filetype=apexcode
 
+
 call plug#begin('~/AppData/Local/nvim/autoload/plugged')
 Plug 'https://github.com/morhetz/gruvbox.git'
 Plug 'https://github.com/sainnhe/everforest.git'
 Plug 'https://github.com/neovim/nvim-lspconfig.git'
 Plug 'https://github.com/williamboman/nvim-lsp-installer.git'
+
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-telescope/telescope.nvim', {'tag':'0.1.0'}
+
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 call plug#end()
+
+
 
 			
 lua <<EOF
 require("nvim-lsp-installer").setup {
+	automatic_installation = true,
 	print("Boss -> LSP-installer instantiated !! ")
 	}
 
