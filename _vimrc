@@ -3,6 +3,7 @@ set nu
 set tabstop=4
 set backspace=indent,eol,start
 set nohls
+set nowrap
 set signcolumn=yes
 set scrolloff=8
 set smartindent
@@ -68,9 +69,13 @@ vmap > >gv
 vmap <A-j> :m '<-2<CR>gv=gv
 vmap <A-k> :m '>+1<CR>gv=gv
 
+"Save and Quite File
+nnoremap <SPACE><SPACE>x :wq<CR>
+
 "Remap <Space> key as leader
 nnoremap <SPACE> <NOP>
 let mapleader = " "
+
 
 "Recognize .apex and .cls files as Salesforce apex files
 au BufRead,BufNewFile *.cls,*.trigger,*.apex set filetype=apexcode
